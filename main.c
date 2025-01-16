@@ -49,17 +49,6 @@ int main(int argc, char **argv) {
         goto done;
     }
 
-    if (opts.user) {
-        user_data = getpwnam(opts.user);
-        if (!user_data) {
-            perror("getpwnam");
-            cape_log_error("failed to lookup user: '%s'", opts.user);
-            err = -1;
-            goto done;
-        }
-        uid = user_data->pw_uid;
-    }
-
     if (opts.root) {
         err = chroot(opts.root);
         if (err) {
@@ -71,6 +60,17 @@ int main(int argc, char **argv) {
             );
             goto done;
         }
+    }
+
+    if (opts.user) {
+        user_data = getpwnam(opts.user);
+        if (!user_data) {
+            perror("getpwnam");
+            cape_log_error("failed to lookup user: '%s'", opts.user);
+            err = -1;
+            goto done;
+        }
+        uid = user_data->pw_uid;
     }
 
     if (opts.directory) {
