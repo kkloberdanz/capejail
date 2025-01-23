@@ -1,7 +1,6 @@
 #include <seccomp.h>
 #include <stdio.h>
 
-#include "banned.h"
 #include "logger.h"
 #include "seccomp.h"
 
@@ -1332,6 +1331,7 @@ enum {
 int cape_enable_seccomp(void) {
     scmp_filter_ctx ctx = NULL;
     int err = 0;
+    size_t i;
 
     ctx = seccomp_init(SCMP_ACT_KILL); /* default action: kill */
     if (ctx == NULL) {
@@ -1340,7 +1340,7 @@ int cape_enable_seccomp(void) {
         goto cleanup;
     }
 
-    for (size_t i = 0; i < NUM_SYSCALLS; i++) {
+    for (i = 0; i < NUM_SYSCALLS; i++) {
         const int the_syscall = ALLOWED_SYSCALLS[i];
         err = seccomp_rule_add(ctx, SCMP_ACT_ALLOW, the_syscall, 0);
         if (err) {

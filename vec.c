@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "banned.h"
 #include "vec.h"
 
 int cape_string_vec_push(struct cape_string_vec *vec, const char *string) {
@@ -48,7 +47,8 @@ fail:
 
 void cape_string_vec_free(struct cape_string_vec *vec) {
     if (vec) {
-        for (size_t i = 0; i < vec->len; i++) {
+        size_t i;
+        for (i = 0; i < vec->len; i++) {
             free(vec->data[i]);
         }
         free(vec->data);

@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "banned.h"
 #include "env.h"
 #include "logger.h"
 #include "vec.h"

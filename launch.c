@@ -3,7 +3,6 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#include "banned.h"
 #include "launch.h"
 #include "logger.h"
 #include "vec.h"
@@ -72,10 +71,12 @@ int cape_launch_jail(
 
     child_pid = fork();
     if (child_pid == 0) {
+        size_t i;
+
         /* child */
         cape_log_error("executing command:");
         fprintf(stderr, "> ");
-        for (size_t i = 0; program_args[i] != NULL; i++) {
+        for (i = 0; program_args[i] != NULL; i++) {
             fprintf(stderr, "%s ", program_args[i]);
         }
         fprintf(stderr, "\n");

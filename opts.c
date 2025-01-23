@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "banned.h"
 #include "logger.h"
 #include "opts.h"
 #include "vec.h"

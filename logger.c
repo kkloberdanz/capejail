@@ -4,29 +4,36 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "banned.h"
 #include "logger.h"
 
 static char *PROGRAM_NAME = NULL;
 
 void cape_print_usage(void) {
-    fprintf(
-        stderr,
+    printf(
         "%s: enable a secure compute environment in a jail that blocks "
         "certain syscalls\n\n"
         "usage:\n"
-        "\t%s [OPTION] -- PROGRAM [ARGS]\n\n"
-        "\t-e\tadd an environment variable in the form of KEY=VALUE\n"
-        "\t\texample: capejail -e HOME=/home/jailuser -e FOO=bar -- ...\n\n"
-        "\t-h\tdisplay this help message\n\n"
-        "\t-n\tdisable networking for the jailed process\n\n"
-        "\t-d\tdirectory to start in within jail\n\n"
-        "\t-r\tpath to chroot directory to use in jail\n\n"
-        "\t-u\tuser to run as within the jail\n\n"
-        "\t-I\tinsecure mode, launch with seccomp disabled\n\n"
-        "NOTE: should be run as root or with sudo to allow chroot\n\n",
+        "  %s [OPTION] -- PROGRAM [ARGS]\n\n"
+        "%s"
+        "%s"
+        "%s"
+        "%s"
+        "%s"
+        "%s"
+        "%s"
+        "%s"
+        "%s",
         PROGRAM_NAME,
-        PROGRAM_NAME
+        PROGRAM_NAME,
+        "  -e  add an environment variable in the form of KEY=VALUE\n",
+        "      example: capejail -e HOME=/home/jailuser -e FOO=bar -- ...\n\n",
+        "  -h  display this help message\n\n",
+        "  -n  disable networking for the jailed process\n\n",
+        "  -d  directory to start in within jail\n\n",
+        "  -r  path to chroot directory to use in jail\n\n",
+        "  -u  user to run as within the jail\n\n",
+        "  -I  insecure mode, launch with seccomp disabled\n\n",
+        "NOTE: should be run as root or with sudo to allow chroot\n\n"
     );
 }
 

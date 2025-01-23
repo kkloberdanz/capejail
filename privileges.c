@@ -38,8 +38,10 @@ int cape_drop_privileges(uid_t uid, bool disable_networking) {
      * https://wiki.sei.cmu.edu/confluence/display/c/POS36-C.+Observe+correct+revocation+order+while+relinquishing+privileges
      */
     int err = 0;
-    const gid_t list[] = {uid};
+    gid_t list[1];
     const size_t len = sizeof(list) / sizeof(*list);
+
+    list[0] = uid;
 
     err = do_unshare(disable_networking);
     if (err) {

@@ -5,7 +5,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "banned.h"
 #include "env.h"
 #include "launch.h"
 #include "logger.h"
@@ -23,19 +22,18 @@ int main(int argc, char **argv) {
     uid_t uid = getuid();
     int child_status = 0;
 
-    struct cape_opts opts = {
-        .root = NULL,
-        .user = NULL,
-        .directory = "/",
-        .insecure_mode = false,
-        .disable_networking = false,
-    };
+    struct cape_opts opts;
+    struct cape_string_vec env;
 
-    struct cape_string_vec env = {
-        .data = NULL,
-        .len = 0,
-        .cap = 0,
-    };
+    opts.root = NULL;
+    opts.user = NULL;
+    opts.directory = "/";
+    opts.insecure_mode = false;
+    opts.disable_networking = false;
+
+    env.data = NULL;
+    env.len = 0;
+    env.cap = 0;
 
     err = cape_logger_init(argv[0]);
     if (err) {
