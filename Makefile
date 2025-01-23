@@ -32,7 +32,7 @@ all: capejail
 capejail: $(OBJS)
 	$(CC) -o capejail $(OBJS) $(CFLAGS) $(LDFLAGS)
 
-%.o: %.c $(HEADERS)
+%.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 
 .PHONY: lint
@@ -42,6 +42,11 @@ lint:
 .PHONY: fmt
 fmt:
 	clang-format -i *.c *.h
+
+deps.mk: $(SRC) $(HEADERS)
+	$(CC) -MM $(SRC) $(INC) > deps.mk
+
+include deps.mk
 
 .PHONY: clean
 clean:
