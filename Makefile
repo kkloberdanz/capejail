@@ -15,7 +15,7 @@ HEADERS = $(wildcard *.h)
 OBJS = $(patsubst %.c,%.o,$(SRC))
 
 .PHONY: release
-release: OPT=-O2 -D_FORTIFY_SOURCE=2
+release: OPT=-O2 -D_FORTIFY_SOURCE=3
 release: all
 
 .PHONY: debug
