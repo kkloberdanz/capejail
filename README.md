@@ -90,36 +90,18 @@ NOTE: should be run as root or with sudo to allow chroot
 
 ## Example
 
-First, create a chroot directory. One way to do this is to run a docker
-container, and mount a volume to it where you will install the system to.
+First, we need to bootstrap a chroot directory. On a Debian based system, we can
+do this using the `debootstrap` command like so.
 
-```
-docker run --rm -it -v ~/chroot:/chroot debian
-```
-
-Next, within the docker container, copy the necessary directories into the
-chroot:
-
-```
-mkdir /chroot
-cp -r /bin /chroot/
-cp -r /sbin /chroot/
-cp -r /usr /chroot/
-cp -r /etc /chroot/
-rm -f /chroot/etc/bash.bashrc
-cp -r /lib /chroot/
-cp -r /lib64 /chroot/
-mkdir /chroot/dev
-mknod -m 666 /chroot/dev/null c 1 3
-mknod -m 666 /chroot/dev/zero c 1 5
-mknod -m 666 /chroot/dev/random c 1 8
-mknod -m 666 /chroot/dev/urandom c 1 9
+```sh
+sudo /sbin/debootstrap bookworm ~/chroot http://deb.debian.org/debian/
 ```
 
-After exiting the docker container, create a new user on the host system for
-running as within the jail.
+Once a Debian chroot has been bootstrapped, let's create the user that we will
+use within this jail environment.
 
-```
+```sh
+sudo chroot ~/chroot
 adduser jailuser
 ```
 
