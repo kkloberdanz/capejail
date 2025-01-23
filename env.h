@@ -1,6 +1,7 @@
 #ifndef ENV_H
 #define ENV_H
 
+#include <sys/types.h>
 #include <unistd.h>
 
 #include "vec.h"
