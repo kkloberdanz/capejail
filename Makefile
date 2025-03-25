@@ -7,7 +7,7 @@ WARNING=-Werror -Wall -Wextra -Wpedantic -Wfloat-equal -Wundef -Wshadow \
 	-Wstrict-overflow=5 -Wwrite-strings -Waggregate-return -Wcast-qual \
 	-Wswitch-enum -Wunreachable-code -Wformat -Wformat-security -Wvla \
 
-FLAGS=-fstack-protector-all -fPIE -pipe -fcf-protection
+FLAGS=-fPIE -pipe -fharden-compares
 CFLAGS=$(WARNING) $(STD) $(OPT) $(FLAGS)
 
 SRC = $(wildcard *.c)
@@ -15,7 +15,7 @@ HEADERS = $(wildcard *.h)
 OBJS = $(patsubst %.c,%.o,$(SRC))
 
 .PHONY: release
-release: OPT=-O2 -D_FORTIFY_SOURCE=3
+release: OPT=-O2 -fhardened
 release: all
 
 .PHONY: debug
